@@ -2,23 +2,20 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import RCTHeader from './components/RCTHeader/RCTHeader';
-import RCTTrackingCard from './components/RCTTrackingCard/RCTTrackingCard';
+import RCTCardList from './components/RCTCardList/RCTCardList';
 import {DateContext, useDateContextValue} from './components/DatePicker/DatePickerContext';
+import {CardListContext, useCardListContext} from './components/CardListContext/CardListContext';
 
 function App() {
   const defaultDateContextValue = useDateContextValue();
-  const graphData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const cardsContextValue = useCardListContext();
   return (
-    <DateContext.Provider value={defaultDateContextValue}>
-      <div className="App">
-        <RCTHeader />
-        <div className="card-grid">
-          {graphData.map((data) => (
-            <RCTTrackingCard key={data} />
-          ))}
+    <CardListContext.Provider value={cardsContextValue}>
+        <div className="App">
+          <RCTHeader />
+          <RCTCardList />
         </div>
-      </div>
-    </DateContext.Provider>
+    </CardListContext.Provider>
   );
 }
 

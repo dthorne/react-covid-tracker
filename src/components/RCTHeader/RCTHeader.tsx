@@ -4,16 +4,24 @@ import { DateRangeInput, DateSingleInput, Datepicker, FocusedInput } from '@date
 import { DateContext } from '../DatePicker/DatePickerContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faVirus } from '@fortawesome/free-solid-svg-icons'
+import {CardListContext, ChartType} from '../CardListContext/CardListContext';
 
 const initialState = { focusedInput: null };
-
-//type DatePickerInputType = 'START_DATE' | 'END_DATE' | null;
 
 interface State { focusedInput: FocusedInput; }
 
 const RCTHeader: React.FC = () => {
   const [focusedInput, setFocusedInput] = React.useState<FocusedInput>(null);
   const {startDate, endDate, setDateRange} = React.useContext(DateContext);
+  const {addCard} = React.useContext(CardListContext);
+  function handleAddCard() {
+    console.log('Adding card');
+    addCard({
+      title: `${Math.random()}`,
+      type: ChartType.Line,
+      countries: ['US', 'CN']
+    });
+  }
   return (
     <header className="RCTHeader"  data-testid="RCTHeader">
       <div className="header-body">
@@ -31,7 +39,7 @@ const RCTHeader: React.FC = () => {
             focusedInput={focusedInput} // START_DATE, END_DATE or null
           />
         </div> 
-        <div><button className="btn btn-outline-rct"><FontAwesomeIcon icon={faPlus}/></button></div> 
+        <div><button className="btn btn-outline-rct" onClick={handleAddCard}><FontAwesomeIcon icon={faPlus}/></button></div> 
       </div>
     </header>
   );

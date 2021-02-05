@@ -2,10 +2,3 @@
   background-color: FFEBC6;
 }
 
-.card-grid {
-  padding: 25px;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  row-gap: 25px;
-  column-gap: 25px;
-}
