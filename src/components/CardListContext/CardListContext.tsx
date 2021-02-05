@@ -35,7 +35,9 @@ export function useCardListContext(): CardListContextData {
   }, [setCards]);
 
   const removeCard = React.useCallback((id: number) => {
-    setCards([...cards].splice(id, 1));
+    const newCards = [...cards]
+    newCards.splice(id, 1);
+    setCards(newCards);
   }, [setCards, cards]);
 
   return {
