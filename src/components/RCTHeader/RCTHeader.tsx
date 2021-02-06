@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faVirus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import {CardListContext, ChartType} from '../CardListContext/CardListContext';
 import Modal from 'react-modal';
+import {useCountryCodes} from '../CountryCodesContext/CountryCodesContext';
 
 interface CardForm {
   title: string;
@@ -38,7 +39,7 @@ const RCTHeader: React.FC = () => {
   const [chartType, setChartType] = React.useState<ChartType>(ChartType.Line);
   const {startDate, endDate, setDateRange} = React.useContext(DateContext);
   const {addCard} = React.useContext(CardListContext);
-  const {countryCodes} = {countryCodes: ['US', 'CN', 'CA', 'UK']}
+  const {codes: countryCodes = ['US', 'CA']} = useCountryCodes();
   function handleChartType(chartType: any) {
     setChartType(chartType as ChartType);
   }
