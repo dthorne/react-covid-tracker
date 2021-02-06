@@ -28,17 +28,17 @@ export const CardListContext = React.createContext(cardListContextDefaultValue)
 export function useCardListContext(): CardListContextData {
   const [cards, setCards] = React.useState<Card[]>([]);
 
-  const addCard = React.useCallback((card: Card) => {
+  const addCard = (card: Card) => {
     const newCards = [...cards];
-    cards.push(card);
+    newCards.push(card);
     setCards(newCards);
-  }, [setCards]);
+  };
 
-  const removeCard = React.useCallback((id: number) => {
+  const removeCard = (id: number) => {
     const newCards = [...cards]
     newCards.splice(id, 1);
     setCards(newCards);
-  }, [setCards, cards]);
+  };
 
   return {
     cards,

@@ -10,12 +10,14 @@ function App() {
   const defaultDateContextValue = useDateContextValue();
   const cardsContextValue = useCardListContext();
   return (
+    <DateContext.Provider value={defaultDateContextValue}>
     <CardListContext.Provider value={cardsContextValue}>
         <div className="App">
           <RCTHeader />
           <RCTCardList />
         </div>
     </CardListContext.Provider>
+    </DateContext.Provider>
   );
 }
 
