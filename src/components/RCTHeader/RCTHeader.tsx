@@ -39,7 +39,7 @@ const RCTHeader: React.FC = () => {
   const [chartType, setChartType] = React.useState<ChartType>(ChartType.Line);
   const {startDate, endDate, setDateRange} = React.useContext(DateContext);
   const {addCard} = React.useContext(CardListContext);
-  const {codes: countryCodes = ['US', 'CA']} = useCountryCodes();
+  const {codes: countryCodes = []} = useCountryCodes();
   function handleChartType(chartType: any) {
     setChartType(chartType as ChartType);
   }
@@ -85,8 +85,8 @@ const RCTHeader: React.FC = () => {
               onChange={e=>setCountryA(e.target.value)}
               onBlur={e=>setCountryA(e.target.value)}
             >
-              {countryCodes.map((code) => (
-                <option key={code} value={code}>{code}</option>
+              {countryCodes.map(({Country, ISO2, Slug}) => (
+                <option key={ISO2} value={Slug}>{Country}</option>
               ))}
             </select>
           </div>
@@ -97,8 +97,8 @@ const RCTHeader: React.FC = () => {
               onChange={e=>setCountryB(e.target.value)}
               onBlur={e=>setCountryB(e.target.value)}
             >
-              {countryCodes.map((code) => (
-                <option key={code} value={code}>{code}</option>
+              {countryCodes.map(({Country, ISO2, Slug}) => (
+                <option key={ISO2} value={Slug}>{Country}</option>
               ))}
             </select>
           </div>

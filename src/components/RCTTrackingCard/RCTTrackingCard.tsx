@@ -21,7 +21,7 @@ const RCTTrackingCard: React.FC<TrackingCardProps> = ({id, card: {title, type, c
           <div>{title}</div>
           <FontAwesomeIcon icon={faTrash} onClick={handleRemoveCard} />
         </h5>
-        <h6 className="card-subtitle mb-2 text-muted">{ countries.join('-') }</h6>
+        <h6 className="card-subtitle mb-2 text-muted">{ countries.join(' & ') }</h6>
         <code>TODO: Place graph here</code>
       </div>
     </div>

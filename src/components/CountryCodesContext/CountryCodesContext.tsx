@@ -1,9 +1,9 @@
 import React from "react";
 
 type ContextState =
-  {status: 'LOADING' | 'ERROR' | 'LOADED'; codes?: string[]};
+  {status: 'LOADING' | 'ERROR' | 'LOADED'; codes?: CountryData[]};
 
-interface CountryData {
+export interface CountryData {
   Country: string;
   Slug: string;
   ISO2: string;
@@ -30,9 +30,7 @@ export const CountryCodesProvider: React.FC = (props) => {
       .then(countries => {
         setState({
           status: 'LOADED',
-          codes: (countries as CountryData[])
-            .slice(0, 10)
-            .map(c => c.ISO2)
+          codes: (countries as CountryData[]).slice(0, 10)
         });
       })
   }, [null]);
