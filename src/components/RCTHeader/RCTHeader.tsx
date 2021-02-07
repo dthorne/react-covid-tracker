@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faVirus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import {CardListContext, ChartType} from '../CardListContext/CardListContext';
 import Modal from 'react-modal';
-import {useCountryCodes} from '../CountryCodesContext/CountryCodesContext';
+import {CountryData, useCountryCodes} from '../CountryCodesContext/CountryCodesContext';
 
 interface CardForm {
   title: string;
@@ -34,12 +34,16 @@ const RCTHeader: React.FC = () => {
   const [focusedInput, setFocusedInput] = React.useState<FocusedInput>(null);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const [title, setTitle] = React.useState<string>("Covid Stats");
-  const [countryA, setCountryA] = React.useState<string>("US");
-  const [countryB, setCountryB] = React.useState<string>("CA");
   const [chartType, setChartType] = React.useState<ChartType>(ChartType.Line);
   const {startDate, endDate, setDateRange} = React.useContext(DateContext);
   const {addCard} = React.useContext(CardListContext);
   const {codes: countryCodes = []} = useCountryCodes();
+  const [countryA, setCountryA] = React.useState<CountryData>({Country: 'United States', ISO2: 'US', Slug: 'united-states'});
+  const [countryB, setCountryB] = React.useState<CountryData>({Country: 'United States', ISO2: 'US', Slug: 'united-states'});
+  function handleSetCountryData(setFn: (c: CountryData) => void, countrySlug: string) {
+    const countryData = countryCodes.find(c => c.Slug === countrySlug);
+    if (countryData) setFn(countryData);
+  }
   function handleChartType(chartType: any) {
     setChartType(chartType as ChartType);
   }
@@ -81,10 +85,11 @@ const RCTHeader: React.FC = () => {
             <label>Country:&nbsp;</label>
             <select
               
-              value={countryA}
-              onChange={e=>setCountryA(e.target.value)}
-              onBlur={e=>setCountryA(e.target.value)}
+              value={countryA.Slug}
+              onChange={e=>handleSetCountryData(setCountryA,e.target.value)}
+              onBlur={e=>handleSetCountryData(setCountryA,e.target.value)}
             >
+              <option>Select Country</option>
               {countryCodes.map(({Country, ISO2, Slug}) => (
                 <option key={ISO2} value={Slug}>{Country}</option>
               ))}
@@ -93,10 +98,11 @@ const RCTHeader: React.FC = () => {
           <div>
             <label>Country:&nbsp;</label>
             <select
-              value={countryB}
-              onChange={e=>setCountryB(e.target.value)}
-              onBlur={e=>setCountryB(e.target.value)}
+              value={countryB.Slug}
+              onChange={e=>handleSetCountryData(setCountryB,e.target.value)}
+              onBlur={e=>handleSetCountryData(setCountryB,e.target.value)}
             >
+              <option>Select Country</option>
               {countryCodes.map(({Country, ISO2, Slug}) => (
                 <option key={ISO2} value={Slug}>{Country}</option>
               ))}

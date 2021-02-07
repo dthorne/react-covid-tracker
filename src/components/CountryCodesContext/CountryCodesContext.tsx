@@ -25,7 +25,7 @@ export const CountryCodesProvider: React.FC = (props) => {
   React.useEffect(() => {
     setState({status: 'LOADING'});
 
-    fetch(`https://api.covid19api.com/countries`)
+    fetch(`https://api.covid19api.com/countries`, {mode: 'cors'})
       .then(r => r.json())
       .then(countries => {
         setState({

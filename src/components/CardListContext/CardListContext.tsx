@@ -1,9 +1,10 @@
 import React, {useCallback} from "react"
+import {CountryData} from "../CountryCodesContext/CountryCodesContext";
 
 export interface Card {
   title: string;
   type: ChartType;
-  countries: string[];
+  countries: CountryData[];
 }
 
 export enum ChartType {
