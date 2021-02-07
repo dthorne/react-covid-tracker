@@ -21,7 +21,7 @@ const colors = ['#003844', '#006C67', '#42E2B8', '#FFB100', '#FFEBC6'];
 function buildDataset(data: DataPoint[], index: number): ChartDataSets {
   const color = colors[index % colors.length];
   return {
-    label: data[0].Country,
+    label: data[0]?.Country,
     fill: false,
     borderColor: color, 
     backgroundColor: color,
@@ -62,7 +62,7 @@ const RCTTrackingCard: React.FC<TrackingCardProps> = ({id, card: {title, type, c
       ]);
       setChartData({
         labels: buildLabels(sets[0]),
-        datasets: sets.map((s, index) => buildDataset(s, index))
+        datasets: sets.filter(s => s.length).map((s, index) => buildDataset(s, index))
       });
     })();
   }, [countries, startDate, endDate]);

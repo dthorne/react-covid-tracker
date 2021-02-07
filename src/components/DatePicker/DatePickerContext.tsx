@@ -7,8 +7,8 @@ export interface DateContextData {
 }
 
 export const dateContextDefaultValue: DateContextData = {
-  startDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-  endDate: new Date(),
+  startDate: new Date(JSON.parse(localStorage.getItem('startDate') as string) || (Date.now() - 7 * 24 * 60 * 60 * 1000)),
+  endDate: new Date(JSON.parse(localStorage.getItem('endDate') as string) || (Date.now())),
   setDateRange: () => {}
 }
 
@@ -23,6 +23,8 @@ export function useDateContextValue(): DateContextData {
   
   const setDateRange = (startDate: Date | null, endDate: Date | null) => {
     setDates([startDate, endDate]); 
+    startDate && localStorage.setItem('startDate', `${startDate.getTime()}`);
+    endDate && localStorage.setItem('endDate', `${endDate.getTime()}`);
   };
 
   return {

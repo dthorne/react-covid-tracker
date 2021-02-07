@@ -19,7 +19,7 @@ export interface CardListContextData {
 }
 
 export const cardListContextDefaultValue: CardListContextData = {
-  cards: [],
+  cards: (JSON.parse(localStorage.getItem('cards') as string) || []) as Card[],
   addCard: (card: Card) => null,
   removeCard: (id: number) => null
 }
@@ -27,18 +27,23 @@ export const cardListContextDefaultValue: CardListContextData = {
 export const CardListContext = React.createContext(cardListContextDefaultValue)
 
 export function useCardListContext(): CardListContextData {
-  const [cards, setCards] = React.useState<Card[]>([]);
+  const [cards, setCards] = React.useState<Card[]>((JSON.parse(localStorage.getItem('cards') as string) || []));
+  function updateStorage(cards: Card[]) {
+    localStorage.setItem('cards', JSON.stringify(cards));
+  }
 
   const addCard = (card: Card) => {
     const newCards = [...cards];
     newCards.push(card);
     setCards(newCards);
+    updateStorage(newCards);
   };
 
   const removeCard = (id: number) => {
     const newCards = [...cards]
     newCards.splice(id, 1);
     setCards(newCards);
+    updateStorage(newCards);
   };
 
   return {
