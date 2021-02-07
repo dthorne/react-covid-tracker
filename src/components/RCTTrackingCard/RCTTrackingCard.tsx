@@ -1,8 +1,13 @@
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, {useState} from 'react';
 import {Card, CardListContext} from '../CardListContext/CardListContext';
+import {DateContext} from '../DatePicker/DatePickerContext';
 import './RCTTrackingCard.css';
+
+function buildCovid19ApiUrl(startDate: Date | null, endDate: Date | null, country: string) {
+  return `https://api.covid19api.com/country/${country}/status/confirmed?from=${startDate}&to=${endDate}`
+}
 
 interface TrackingCardProps {
   id: number;
@@ -11,9 +16,22 @@ interface TrackingCardProps {
 
 const RCTTrackingCard: React.FC<TrackingCardProps> = ({id, card: {title, type, countries}}) => {
   const {removeCard} = React.useContext(CardListContext);
+  const {startDate, endDate} = React.useContext(DateContext);
+  const [loading, setLoading] = useState<boolean>(false);
   const handleRemoveCard = () => {
     removeCard(id); 
   }
+  React.useEffect(() => {
+    (async function() {
+      setLoading(true);
+      const datasets = await Promise.all([
+        fetch(buildCovid19ApiUrl(startDate, endDate, countries[0])).then(r => r.json()),
+        fetch(buildCovid19ApiUrl(startDate, endDate, countries[1])).then(r => r.json())
+      ]);
+      //TODO: Replace with piping data into chart.js
+      datasets.forEach(console.log);
+    })();
+  }, [countries, startDate, endDate]);
   return (
     <div className="RCTTrackingCard card" data-testid={id}>
       <div>
