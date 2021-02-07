@@ -1,0 +1,19 @@
+.RCTHeader {
+  padding: 25px 15px;
+  background: #003844;
+  color: #FFB100;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-body {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  justify-items: center;
+}
+
+.btn-outline-rct {
+  color: #FFB100;
+  border-color: #FFB100;
+}

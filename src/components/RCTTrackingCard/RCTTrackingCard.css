@@ -1,0 +1,11 @@
+.RCTTrackingCard h5 {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  align-items: center;
+  justify-items: center;
+}
+
+.card-title {
+  padding: 10px 5px;
+  background-color: #42e2b8; 
+}
